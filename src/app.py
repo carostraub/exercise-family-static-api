@@ -41,7 +41,7 @@ def add_member():
 
     if not data.get("first_name"):
         error["first_name"] = "First name is required"
-    if not data("age"):
+    if not data.get("age"):
         error["age"] = "Age is required"
     if not data.get("lucky_numbers"):
         error["lucky_numbers"] = "Lucky number is required"
@@ -49,7 +49,7 @@ def add_member():
     if error: 
         return jsonify({"error":error}), 400
     jackson_family.add_member(data)
-    return jsonify({"msg":"New member added succefully"}), 200
+    return jsonify(data), 200
 
 @app.route('/member/<int:member_id>', methods=["GET"])
 def get_member(member_id):
@@ -64,7 +64,7 @@ def delete_member(member_id):
     member= jackson_family.get_member(member_id)
     if member:
         jackson_family.delete_member(member_id)
-        return jsonify({"done":True}), 200
+        return jsonify({"done": True}), 200
     return jsonify({"error":"Member not found"}), 400
 
     

@@ -46,13 +46,18 @@ class FamilyStructure:
     def add_member(self, member):
         if "id" not in member:
             member["id"] = self._generateId()
-        member ["last_name"] = self.last_name
+        member["last_name"] = self.last_name
         self._members.append(member)
+        return member 
     
 
 
     def delete_member(self, id):
-        self._members = [member for member in self._members if member["id"] != id]
+        for i, member in enumerate(self._members):
+            if member["id"] == id:
+                self._members.pop(i)
+                return True
+        return False
 
 
     def get_member(self, id):
